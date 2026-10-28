@@ -1,0 +1,29 @@
+id: qq
+schema_version: 1
+version: 0.2
+depends:
+  - domain
+  - wiki
+  - trust
+  - log
+  - cron
+updated: 2026-10-28
+attachment:
+  - "wiki/qq/ — QQ domain territory: policy.md (declaration page, type: qq; whitelist semantics, group public-audience convention, bot identity); no transcript, openid or credential content lands here"
+fields:
+  qq: "block mapping (policy page policy.md) — bot_appid (non-secret official bot AppID) / public_field (frontmatter field, default audience) / public_value (public) / group_passive_window (5m) / c2c_passive_window (60m) / max_reply_chars (1800)"
+  audience: "scalar (optional on any wiki page) — public|private; absence = private; only audience: public pages may be read into group replies"
+inject: "QQ chat domain wiki/qq/ (external: official QQ Bot platform api.bot.qq.com, connector qq-cli transport-only read/reply): policy page wiki/qq/policy.md (type: qq + qq block mapping, created when absent); qq-cli runs a local WebSocket listener writing a deduplicated inbox under ~/.qq-cli (never in the repo) — the agent session drains it and composes every reply strictly from wiki/ and vault/ with source citations, no general knowledge and no external content; whitelist enforced connector-side (allowed user_openid / group_openid in ~/.qq-cli/allowlist.json; AppID/ClientSecret in ~/.qq-cli/credentials.json, 0600), unlisted senders never reach the agent; group replies may read only pages carrying audience: public (absence = private), private chats may read all pages; passive windows are 5 minutes (group) / 60 minutes (c2c) and active messages are unavailable, so processing must happen inside the window or the message lapses; credentials and raw message content never enter the repository"
+inject_tier: full
+commands:
+  - qq
+usage:
+  - "Auth: `qq-cli ensure` is the agent-side login/refresh path — it uses AppID/ClientSecret stored 0600 in ~/.qq-cli/credentials.json, so it needs no TTY; when they are missing, direct the human to run `qq-cli secret set --app-id <AppID>` once in their own terminal (interactive secret, never pasted into chat); never echo the ClientSecret, access token or raw openids"
+  - "Whitelist and identity: the connector filters every event against ~/.qq-cli/allowlist.json; the agent never widens the whitelist on its own — pending senders surface via `qq-cli requests`, approval is human-only; openids and app secrets never land in wiki pages"
+  - "Grounding: every reply is composed from wiki/ and vault/ content only (query order: hot → index/tags → grep → read ≤3-5 pages); no match → say the directory has no such content and stop; never use general knowledge, never invent a citation; cite sources as plain-text full names (e.g. `来源：notes/foo`), never URLs"
+  - "Group exposure: only pages with `audience: public` may be read or cited; do not read wiki/hot.md, wiki/index.md or any private page in group mode; a group question that needs a private page is refused, and private page titles are never mentioned"
+  - "Reply mechanics: one batch = one `qq-cli reply` sequence inside the passive window (group 5m / c2c 60m), ≤5 chunks, ≤1800 chars each; on expiry report to the human, never attempt an active message; ack only after a successful send"
+  - "Logging: one `pipeline.py log` line per processing batch (type query or other, `--domain qq`), containing counts only — never message text, openids or credentials; no hot-cache entries per message"
+  - "Unattended mode (optional): the package ships the executor recipe (scripts/ + systemd/ · launchd/ · windows/); init installs the platform listener and every-minute agent trigger (systemd units, launchd agents or Task Scheduler tasks) only after confirmation, and every installer writes ~/.qq-cli/executor.json; the cross-platform watcher checks `inbox --count` (expired/claimed excluded), processes group first with only audience: public pages readable, then c2c, one kind per turn; replies go through the stdin-only wrapper; the task page stays executor-agnostic and becomes status: active only after a real reply test"
+checks:
+  - "A type: qq page outside wiki/qq/ → error; policy.md missing the qq block or bot_appid → warning; an audience value outside public|private → warning; credential-like strings or openids in wiki/qq/ → warning (attached audit, read-only)"

@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "qqcli"
+version = "0.2.0"
+description = "Transport-only CLI for the official QQ Bot open platform (v2 API)"
+requires-python = ">=3.10"
+dependencies = ["websockets>=12,<14"]
+
+[project.scripts]
+qq-cli = "qqcli.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["qqcli*"]

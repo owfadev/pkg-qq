@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.qq-cli.listen</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>@QQCLI@</string>
+    <string>listen</string>
+    <string>--replace</string>
+  </array>
+  <key>WorkingDirectory</key>
+  <string>@ROOT@</string>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>PATH</key>
+    <string>@HOME@/.local/bin:/usr/local/bin:/usr/bin:/bin</string>
+    <key>QQ_CLI_HOME</key>
+    <string>@HOME@/.qq-cli</string>
+  </dict>
+  <key>RunAtLoad</key>
+  <true/>
+  <key>KeepAlive</key>
+  <true/>
+  <key>StandardOutPath</key>
+  <string>@HOME@/.qq-cli/listen.log</string>
+  <key>StandardErrorPath</key>
+  <string>@HOME@/.qq-cli/listen.log</string>
+</dict>
+</plist>

@@ -1,0 +1,18 @@
+[Unit]
+Description=owfa QQ transport listener
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=@ROOT@
+Environment=PATH=@HOME@/.local/bin:/usr/local/bin:/usr/bin:/bin
+Environment=QQ_CLI_HOME=@HOME@/.qq-cli
+ExecStart=@QQCLI@ listen --replace
+Restart=always
+RestartSec=5
+StandardOutput=append:@HOME@/.qq-cli/listen.log
+StandardError=append:@HOME@/.qq-cli/listen.log
+
+[Install]
+WantedBy=default.target

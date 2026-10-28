@@ -1,0 +1,14 @@
+{
+  "users": {
+    "USER_OWNER": {
+      "label": "owner",
+      "enabled": true
+    }
+  },
+  "groups": {
+    "GROUP_ALLOWED": {
+      "label": "test-group",
+      "enabled": true
+    }
+  }
+}

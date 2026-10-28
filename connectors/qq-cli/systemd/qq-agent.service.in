@@ -1,0 +1,14 @@
+[Unit]
+Description=owfa QQ unattended agent
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=@ROOT@
+Environment=PATH=@HOME@/.local/bin:/usr/local/bin:/usr/bin:/bin
+Environment=QQ_CLI_HOME=@HOME@/.qq-cli
+ExecStart=@PYTHON@ @ROOT@/connectors/qq-cli/scripts/qq-agent-watch.py
+TimeoutStartSec=240
+StandardOutput=append:@HOME@/.qq-cli/agent.log
+StandardError=append:@HOME@/.qq-cli/agent.log

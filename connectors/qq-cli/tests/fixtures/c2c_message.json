@@ -1,0 +1,20 @@
+{
+  "id": "EVENT_C2C_1",
+  "op": 0,
+  "s": 1,
+  "t": "C2C_MESSAGE_CREATE",
+  "d": {
+    "id": "MSG_C2C_1",
+    "author": {
+      "user_openid": "USER_OWNER",
+      "bot": false
+    },
+    "content": "wiki 里关于 RAG 有什么？",
+    "timestamp": "2099-01-01T00:00:00+08:00",
+    "message_type": 0,
+    "message_scene": {
+      "source": "default",
+      "ext": ["msg_idx=1", "ref_msg_idx=0", "auth_token=fixture"]
+    }
+  }
+}

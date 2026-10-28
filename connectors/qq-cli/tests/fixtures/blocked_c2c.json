@@ -1,0 +1,16 @@
+{
+  "id": "EVENT_BLOCKED_1",
+  "op": 0,
+  "s": 3,
+  "t": "C2C_MESSAGE_CREATE",
+  "d": {
+    "id": "MSG_BLOCKED_1",
+    "author": {
+      "user_openid": "USER_STRANGER",
+      "bot": false
+    },
+    "content": "hello, can you answer?",
+    "timestamp": "2099-01-01T00:02:00+08:00",
+    "message_type": 0
+  }
+}

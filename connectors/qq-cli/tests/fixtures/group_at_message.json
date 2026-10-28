@@ -1,0 +1,22 @@
+{
+  "id": "EVENT_GROUP_1",
+  "op": 0,
+  "s": 2,
+  "t": "GROUP_AT_MESSAGE_CREATE",
+  "d": {
+    "id": "MSG_GROUP_1",
+    "group_openid": "GROUP_ALLOWED",
+    "author": {
+      "member_openid": "MEMBER_1",
+      "member_role": "member",
+      "bot": false
+    },
+    "content": "介绍一下公开笔记",
+    "timestamp": "2099-01-01T00:01:00+08:00",
+    "message_type": 0,
+    "message_scene": {
+      "source": "default",
+      "ext": ["msg_idx=2", "ref_msg_idx=0", "auth_token=fixture"]
+    }
+  }
+}
